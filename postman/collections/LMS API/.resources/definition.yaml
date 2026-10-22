@@ -3,7 +3,7 @@ variables:
   - key: URL
     value: ""
     disabled: false
-  - key: json_web_token_19p9
+  - key: token apprenant
     secret: true
     disabled: false
     source:
@@ -12,7 +12,7 @@ variables:
         type: cloud
         secretId: 532974ef-c46a-40ba-8866-dfe335125a6e
         vaultId: 8a943c71-ce8f-49a5-af4c-ac5bb7b00fcc
-  - key: json_web_token_04c0
+  - key: token trainer
     secret: true
     disabled: false
     source:

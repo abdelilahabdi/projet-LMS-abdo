@@ -11,7 +11,10 @@ dotenv.config();
 async function seed() {
   try {
     await mongoose.connect(process.env.MONGO_URI);
-    console.log("MongoDB connected for seed");
+    console.log(
+      `Seeding database "${mongoose.connection.name}" on ${mongoose.connection.host}:${mongoose.connection.port}`,
+    );
+    console.log("Replacing existing courses, modules, and resources.");
 
     await Resource.deleteMany({});
     await Module.deleteMany({});
@@ -185,7 +188,9 @@ async function seed() {
       },
     ]);
 
-    console.log("Seed completed successfully");
+    console.log(
+      `Seed completed in "${mongoose.connection.name}": ${await User.countDocuments({})} users, ${courses.length} courses, ${modules.length} modules, ${resources.length} resources.`,
+    );
 
     await mongoose.connection.close();
     console.log("MongoDB connection closed");
