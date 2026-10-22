@@ -3,6 +3,9 @@ import Course from "../models/course.js";
 import NotificationPreference from "../models/NotificationPreference.js";
 
 // GET the logged-in trainer's preferences
+//
+//GET /api/trainer/preferences
+//
 export const getMyPreferences = async (req, res) => {
   try {
     const trainerId = req.user.id;
@@ -26,7 +29,9 @@ export const getMyPreferences = async (req, res) => {
     });
   }
 };
-
+//
+//PUT /api/trainer/preferences
+//
 export const updateMyPreferences = async (req, res) => {
   try {
     const trainerId = req.user.id;
@@ -102,4 +107,12 @@ export const updateMyPreferences = async (req, res) => {
       message: "Server error",
     });
   }
+};
+
+export const getEnabledPreferences = async () => {
+  const preferences = await NotificationPreference.find({
+    enabled: true,
+  }).populate("trainer", "name email");
+
+  return preferences;
 };
