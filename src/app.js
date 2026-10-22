@@ -8,7 +8,8 @@ import { notFound } from "./middlewares/notFound.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
 import authRoutes from "./routes/authRoutes.js";
 import resourceRoutes from "./routes/resourceRoutes.js";
-import trainerRoutes from  "./routes/trainerRoutes.js";
+import trainerRoutes from "./routes/trainerRoutes.js";
+import quizRoutes from "./routes/quizRoutes.js";
 
 dotenv.config();
 
@@ -22,7 +23,8 @@ app.use("/api/modules", moduleRoutes);
 app.use("/api", enrollmentRoutes);
 app.use("/api/resources", resourceRoutes);
 app.use("/api/progress", progressionRoutes);
-app.use("/api/trainer",trainerRoutes)
+app.use("/api/trainer", trainerRoutes);
+app.use("/api/quizzes", quizRoutes);
 
 app.get("/", (req, res) => {
   res.send("LMS API is running");
