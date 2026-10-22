@@ -108,3 +108,11 @@ export const updateMyPreferences = async (req, res) => {
     });
   }
 };
+
+export const getEnabledPreferences = async () => {
+  const preferences = await NotificationPreference.find({
+    enabled: true,
+  }).populate("trainer", "name email");
+
+  return preferences;
+};
