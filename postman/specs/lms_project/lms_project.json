@@ -1,0 +1,497 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "lms_project",
+    "version": "1.0.0",
+    "description": ""
+  },
+  "servers": [
+    {
+      "url": "{{URL}}"
+    },
+    {
+      "url": ""
+    },
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/api/courses": {
+      "get": {
+        "summary": "List published courses",
+        "responses": {},
+        "tags": [
+          "courses"
+        ],
+        "description": "Description  \nReturns all published courses.\n\nMethod  \nGET\n\nEndpoint  \n/api/courses\n\nQuery Parameters  \nNone\n\nResponse 200  \nReturns an array of published courses.\n\nResponse 500  \nInternal server error."
+      },
+      "post": {
+        "summary": "creat course",
+        "responses": {},
+        "tags": [
+          "courses"
+        ],
+        "description": "Description  \ncreate a course.\n\nMethod  \nPOST\n\nEndpoint  \n/api/courses\n\nQuery Parameters  \nNone\n\nResponse 200  \nReturns an array of created course.\n\nResponse 500  \nInternal server error.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "objectives": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "level": {
+                    "type": "string"
+                  },
+                  "category": {
+                    "type": "string"
+                  },
+                  "estimatedDuration": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "example": {
+                "title": "Laravel Fundamentals",
+                "description": "Learn the fundamentals of Laravel.",
+                "objectives": [
+                  "Understand Laravel basics",
+                  "Create Laravel routes",
+                  "Work with controllers"
+                ],
+                "level": "beginner",
+                "category": "Laravel",
+                "estimatedDuration": 20
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/courses/6ac7b15f52b098c0d110ec4d": {
+      "get": {
+        "summary": "Course details",
+        "responses": {},
+        "tags": [
+          "courses"
+        ],
+        "description": "Returns the details of a specific published course by its ID.\n\n**Method:** GET  \n**Endpoint:** `/api/courses/:id`\n\n**Responses:**\n\n- `200` — Course found\n    \n- `400` — Invalid course ID\n    \n- `404` — Course not found\n    \n- `500` — Internal server error"
+      }
+    },
+    "/courses/6abe82dbf7f292afd8acce14/modules": {
+      "get": {
+        "summary": "Course modules",
+        "responses": {},
+        "tags": [
+          "courses"
+        ],
+        "description": "Returns all published modules belonging to a specific course.\n\n**Method:** GET  \n**Endpoint:** `/api/courses/:courseId/modules`\n\n**Responses:**\n\n- `200` — Modules returned successfully\n    \n- `500` — Internal server error"
+      }
+    },
+    "/": {
+      "patch": {
+        "summary": "update course",
+        "responses": {},
+        "tags": [
+          "courses"
+        ]
+      },
+      "get": {
+        "summary": "Course not found",
+        "responses": {},
+        "tags": [
+          "errors"
+        ],
+        "description": "Tests the response when the course ID is valid but the course does not exist.\n\n**Method:** GET  \n**Endpoint:** `/api/courses/:id`\n\n**Response:**\n\n- `404` — Course not found"
+      }
+    },
+    "/api/": {
+      "patch": {
+        "summary": "pulish course",
+        "responses": {},
+        "tags": [
+          "courses"
+        ]
+      }
+    },
+    "/api/course/6ac916d3ff956d9d1f7f1d20/unpublish": {
+      "patch": {
+        "summary": "unpublish course",
+        "responses": {},
+        "tags": [
+          "courses"
+        ]
+      }
+    },
+    "/api/courses/6ac916d3ff956d9d1f7f1d20/archived": {
+      "patch": {
+        "summary": "archive course",
+        "responses": {},
+        "tags": [
+          "courses"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/resources/courses/": {
+      "post": {
+        "summary": "create resourse",
+        "responses": {},
+        "tags": [
+          "resource"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "content": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "position": {
+                    "type": "string",
+                    "format": "utc-millisec"
+                  }
+                }
+              },
+              "example": {
+                "title": "test",
+                "type": "article",
+                "content": "test",
+                "url": "testttt",
+                "description": "testttttttt",
+                "position": "1"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/resources/6ac916d3ff956d9d1f7f1d20/6acabdc0795bf43a929b7b8e/resources/6acd184540c168efaa088c1a": {
+      "patch": {
+        "summary": "update resourse",
+        "responses": {},
+        "tags": [
+          "resource"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "title": "title updated"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/resources/6ac916d3ff956d9d1f7f1d20/6acabdc0795bf43a929b7b8e/6acd184540c168efaa088c1a/published": {
+      "patch": {
+        "summary": "publish resourse",
+        "responses": {},
+        "tags": [
+          "resource"
+        ]
+      }
+    },
+    "/api/test": {
+      "get": {
+        "summary": "Route not found",
+        "responses": {},
+        "tags": [
+          "errors"
+        ],
+        "description": "Tests the response when the requested route does not exist.\n\n**Method:** GET  \n**Endpoint:** `/api/test`\n\n**Response:**\n\n- `404` — Route not found"
+      }
+    },
+    "/api/courses/123": {
+      "get": {
+        "summary": "Invalid course ID",
+        "responses": {},
+        "tags": [
+          "errors"
+        ],
+        "description": "Tests the response when the course ID has an invalid format.\n\n**Method:** GET  \n**Endpoint:** `/api/courses/:id`\n\n**Response:**\n\n- `400` — Invalid course ID"
+      }
+    },
+    "/api/auth/register": {
+      "post": {
+        "summary": "register",
+        "responses": {},
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "summary": "login",
+        "responses": {},
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/auth/me": {
+      "get": {
+        "summary": "My profile",
+        "responses": {},
+        "tags": [
+          "auth"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "Returns the logged-in user's ID, name, email, and role.\nUse the token returned by login as the token variable in Postman."
+      }
+    },
+    "/api/modules/6abe82dbf7f292afd8acce17/resources": {
+      "get": {
+        "summary": "Module resources",
+        "responses": {},
+        "tags": [
+          "modules"
+        ],
+        "description": "Returns all resources belonging to a specific module.\n\n**Method:** GET  \n**Endpoint:** `/api/modules/:moduleId/resources`\n\n**Responses:**\n\n- `200` — Resources returned successfully\n    \n- `500` — Internal server error"
+      }
+    },
+    "/api/modules/courses/6ac916d3ff956d9d1f7f1d20/modules": {
+      "post": {
+        "summary": "create module",
+        "responses": {},
+        "tags": [
+          "modules"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "position": {
+                    "type": "string",
+                    "format": "utc-millisec"
+                  },
+                  "estimatedDuration": {
+                    "type": "string",
+                    "format": "utc-millisec"
+                  }
+                }
+              },
+              "example": {
+                "title": "module test",
+                "description": "test",
+                "position": "1",
+                "estimatedDuration": "20"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/modules/6ac916d3ff956d9d1f7f1d20/6acabdc0795bf43a929b7b8e/modules": {
+      "patch": {
+        "summary": "update module",
+        "responses": {},
+        "tags": [
+          "modules"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "title": "updated"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/modules/courses/6ac916d3ff956d9d1f7f1d20/modules/6acabdc0795bf43a929b7b8e/publish": {
+      "patch": {
+        "summary": "publish module",
+        "responses": {},
+        "tags": [
+          "modules"
+        ]
+      }
+    },
+    "/api/modules/courses/6ac916d3ff956d9d1f7f1d20/modules/6acabdc0795bf43a929b7b8e/unpublish": {
+      "patch": {
+        "summary": "unpublish module",
+        "responses": {},
+        "tags": [
+          "modules"
+        ]
+      }
+    },
+    "/api/courses/6accf9c04d09195fd299379d/enroll": {
+      "post": {
+        "summary": "enrolle in a course",
+        "responses": {},
+        "tags": [
+          "enrollment"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/enrollments/6accfb77d4afb7cda05e6dea/cancel": {
+      "patch": {
+        "summary": "cancelation de la inscription",
+        "responses": {},
+        "tags": [
+          "enrollment"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/progress/courses/6accf9c04d09195fd299379d/progress/start": {
+      "post": {
+        "summary": "starting course",
+        "responses": {},
+        "tags": [
+          "progression"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/progress/resources/6acfaeb2452b1b1491e473b1/view": {
+      "post": {
+        "summary": "marking resource as viewed",
+        "responses": {},
+        "tags": [
+          "progression"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/progress/courses/6acfaeb2452b1b1491e473aa/progression": {
+      "get": {
+        "summary": "getMyy progress",
+        "responses": {},
+        "tags": [
+          "progression"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/trainer/courses/6ac916d3ff956d9d1f7f1d20/learners": {
+      "get": {
+        "summary": "enrolled students in a course",
+        "responses": {},
+        "tags": [
+          "trainer"
+        ]
+      }
+    },
+    "/api/trainer/preferences": {
+      "get": {
+        "summary": "New Request",
+        "responses": {},
+        "tags": [
+          "trainer"
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}
