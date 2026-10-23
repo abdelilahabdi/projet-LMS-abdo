@@ -21,7 +21,7 @@ variables:
         type: cloud
         secretId: 9c62b0ea-b912-4c50-8829-34fe1e265e35
         vaultId: 8a943c71-ce8f-49a5-af4c-ac5bb7b00fcc
-  - key: json_web_token_0fyh
+  - key: "token admin "
     secret: true
     disabled: false
     source:
