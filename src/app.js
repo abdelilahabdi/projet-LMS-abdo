@@ -11,6 +11,7 @@ import resourceRoutes from "./routes/resourceRoutes.js";
 import trainerRoutes from "./routes/trainerRoutes.js";
 import quizRoutes from "./routes/quiz_routes.js";
 
+import notificationJobRoutes from "./routes/notificationJobRoutes.js";
 dotenv.config();
 
 const app = express();
@@ -26,6 +27,7 @@ app.use("/api/progress", progressionRoutes);
 app.use("/api/trainer", trainerRoutes);
 app.use("/api/quizzes", quizRoutes);
 
+app.use("/api/admin/jobs", notificationJobRoutes);
 app.get("/", (req, res) => {
   res.send("LMS API is running");
 });

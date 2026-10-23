@@ -13,16 +13,16 @@ export const enrollCourse = async (req, res) => {
     //   return res.status(404).json({ message: "Course not found" });
     // }
     const course = await Course.findById(courseId);
-    if (!course || course.status !== "published") {
-      return res
-        .status(404)
-        .json({ message: "Course not found or not published" });
+    if (!course) {
+      return res.status(404).json({
+        message: "Course not found",
+      });
     }
 
     if (course.status !== "published") {
-      return res
-        .status(400)
-        .json({ message: "Cannot enroll in an unpublished course" });
+      return res.status(400).json({
+        message: "Cannot enroll in an unpublished course",
+      });
     }
 
     // 2. Check if user already has an active enrollment

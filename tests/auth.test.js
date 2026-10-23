@@ -8,6 +8,7 @@ import app from "../src/app.js";
 
 // --- Variables de test ---
 let userId = "";
+let token = "";
 const testEmail = `auth_${Date.now()}@test.com`;
 
 // --- Connexion à MongoDB ---
@@ -39,6 +40,39 @@ describe("Authentification", () => {
 
     expect(res.statusCode).toBe(200);
     expect(res.body).toHaveProperty("token");
+
+    token = res.body.token;
+  });
+
+  test("GET /me returns the logged-in user's profile without a password", async () => {
+    const res = await request(app)
+      .get("/api/auth/me")
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body.user).toEqual({
+      id: userId,
+      name: "Testeur Auth",
+      email: testEmail,
+      role: "learner",
+    });
+    expect(res.body.user).not.toHaveProperty("password");
+  });
+
+  test("GET /me rejects a request without a token", async () => {
+    const res = await request(app).get("/api/auth/me");
+
+    expect(res.statusCode).toBe(401);
+    expect(res.body).not.toHaveProperty("user");
+  });
+
+  test("GET /me rejects an invalid token", async () => {
+    const res = await request(app)
+      .get("/api/auth/me")
+      .set("Authorization", "Bearer invalid-token");
+
+    expect(res.statusCode).toBe(401);
+    expect(res.body).not.toHaveProperty("user");
   });
 
   test("Connexion refusée avec mauvais mot de passe", async () => {
