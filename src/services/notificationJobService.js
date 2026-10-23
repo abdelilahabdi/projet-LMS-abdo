@@ -4,7 +4,14 @@ export const processNotifications = async () => {
   const preferences = await NotificationPreference.find({
     enabled: true,
   }).populate("trainer", "name email accountStatus");
+  const today = new Date();
 
+  const weekday = new Intl.DateTimeFormat("en-US", {
+    weekday: "long",
+    timeZone: "Africa/Casablanca",
+  }).format(today);
+
+  const isMonday = weekday === "Monday";
   let processed = 0;
 
   for (const preference of preferences) {
@@ -12,6 +19,9 @@ export const processNotifications = async () => {
 
     // Skip deleted or suspended trainers
     if (!trainer || trainer.accountStatus !== "active") {
+      continue;
+    }
+    if (preference.frequency === "weekly" && !isMonday) {
       continue;
     }
 
