@@ -1,5 +1,5 @@
 import Quiz from "../models/Quiz.js";
-import Module from "../models/Module.js";
+import Module from "../models/module.js";
 
 export const create_quiz = async (req, res) => {
   try {
@@ -7,8 +7,8 @@ export const create_quiz = async (req, res) => {
       title, 
       module, 
       questions, 
-      passing_score, 
-      is_mandatory 
+      passing_Score, 
+      is_Mandatory 
     } = req.body;
 
     const target_module = await Module.findById(module).populate("course");
@@ -21,11 +21,11 @@ export const create_quiz = async (req, res) => {
       );
     }
 
-    if (req.user.role !== "admin" && target_module.course.instructor.toString() !== req.user.id.toString()) {
+    if (req.user.role !== "admin" && target_module.course.trainer.toString() !== req.user.id.toString()) {
       return res.status(403).json(
         { 
           success: false,
-          message: "Access denied: you are not the owner of this course" 
+          message: "Access denied: you are not the trainer of this course" 
         }
       );
     }
@@ -49,9 +49,9 @@ export const create_quiz = async (req, res) => {
         title,
         module,
         questions,
-        passing_score,
-        is_mandatory,
-        created_by: req.user.id
+        passing_Score: passing_Score !== undefined ? passing_Score : 70,
+        is_Mandatory: is_Mandatory !== undefined ? is_Mandatory : false,
+        createdBy: req.user.id
       }
     );
 
@@ -83,7 +83,7 @@ export const get_all_quizzes = async (req, res) => {
 
     const quizzes = await Quiz.find(filter)
       .populate("module", "title course")
-      .populate("created_by", "name email");
+      .populate("createdBy", "name email");
 
     return res.status(200).json(
       {
@@ -113,7 +113,7 @@ export const get_quiz_by_id = async (req, res) => {
           populate: { path: "course" }
         }
       )
-      .populate("created_by", "name email");
+      .populate("createdBy", "name email");
 
     if (!quiz) {
       return res.status(404).json(
@@ -161,7 +161,7 @@ export const update_quiz = async (req, res) => {
       );
     }
 
-    if (req.user.role !== "admin" && quiz.module.course.instructor.toString() !== req.user.id.toString()) {
+    if (req.user.role !== "admin" && quiz.module.course.trainer.toString() !== req.user.id.toString()) {
       return res.status(403).json(
         {
           success: false,
@@ -215,7 +215,7 @@ export const delete_quiz = async (req, res) => {
       );
     }
 
-    if (req.user.role !== "admin" && quiz.module.course.instructor.toString() !== req.user.id.toString()) {
+    if (req.user.role !== "admin" && quiz.module.course.trainer.toString() !== req.user.id.toString()) {
       return res.status(403).json(
         {
           success: false,
@@ -262,7 +262,7 @@ export const toggle_quiz_status = async (req, res) => {
       );
     }
 
-    if (req.user.role !== "admin" && quiz.module.course.instructor.toString() !== req.user.id.toString()) {
+    if (req.user.role !== "admin" && quiz.module.course.trainer.toString() !== req.user.id.toString()) {
       return res.status(403).json(
         {
           success: false,
@@ -271,7 +271,7 @@ export const toggle_quiz_status = async (req, res) => {
       );
     }
 
-    quiz.is_active = !quiz.is_active;
+    quiz.isActive = !quiz.isActive;
     await quiz.save();
 
     return res.status(200).json(

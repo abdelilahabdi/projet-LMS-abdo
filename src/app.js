@@ -9,7 +9,7 @@ import { errorHandler } from "./middlewares/errorHandler.js";
 import authRoutes from "./routes/authRoutes.js";
 import resourceRoutes from "./routes/resourceRoutes.js";
 import trainerRoutes from "./routes/trainerRoutes.js";
-import quizRoutes from "./routes/quizRoutes.js";
+import quizRoutes from "./routes/quiz_routes.js";
 
 import notificationJobRoutes from "./routes/notificationJobRoutes.js";
 dotenv.config();
