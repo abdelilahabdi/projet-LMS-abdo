@@ -17,7 +17,7 @@ export function trainerWelcomeEmail(name) {
     return `
     <h1>Welcome to LMS</h1>
     <p>Hello ${safeName}</p>
-    <p>your trainer account is ready </p>
+    <p>your trainer account is ready</p>
     <p>thank you for joining our LMS</p>
     ` ;
 }
