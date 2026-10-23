@@ -1,7 +1,6 @@
 import NotificationPreference from "../models/NotificationPreference.js";
 
 export const processNotifications = async () => {
-  // Find trainers who enabled notifications
   const preferences = await NotificationPreference.find({
     enabled: true,
   }).populate("trainer", "name email accountStatus");
