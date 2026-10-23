@@ -1,5 +1,5 @@
 import cron from "node-cron";
-import { processNotifications } from "../services/notificationJobService.js";
+import { executeNotificationJob } from "../services/notificationJobRunner.js";
 
 export const startNotificationScheduler = () => {
   cron.schedule(
@@ -8,7 +8,7 @@ export const startNotificationScheduler = () => {
       try {
         console.log("Starting scheduled notification job...");
 
-        const result = await processNotifications();
+        const result = await executeNotificationJob("scheduled");
 
         console.log("Notification job completed:", result.processed);
       } catch (error) {
