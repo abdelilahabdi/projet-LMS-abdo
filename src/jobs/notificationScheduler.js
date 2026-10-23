@@ -2,7 +2,6 @@ import cron from "node-cron";
 import { processNotifications } from "../services/notificationJobService.js";
 
 export const startNotificationScheduler = () => {
-  // Every day at 09:00, Morocco time
   cron.schedule(
     "0 9 * * *",
     async () => {
