@@ -1,0 +1,12 @@
+$kind: http-request
+description: |-
+  Returns the logged-in user's ID, name, email, and role.
+  Use the token returned by login as the token variable in Postman.
+url: '{{URL}}/api/auth/me'
+method: GET
+order: 1791558055917
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{token}}'
