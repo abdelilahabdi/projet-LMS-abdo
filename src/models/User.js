@@ -23,6 +23,17 @@ const userSchema = new mongoose.Schema(
       enum: ["learner", "trainer", "admin"],
       default: "learner",
     },
+
+    resetPasswordToken: {
+  type: String,
+  select: false,
+},
+resetPasswordExpires: {
+  type: Date,
+  select: false,
+},
+
+
     accountStatus: {
       type: String,
       enum: ["active", "suspended"],
