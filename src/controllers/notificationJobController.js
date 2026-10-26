@@ -1,8 +1,9 @@
 import { processNotifications , processInactiveLearnerReminders , } from "../services/notificationJobService.js";
+import { executeNotificationJob } from "../services/notificationJobRunner.js";
 
 export const runNotificationJob = async (req, res) => {
   try {
-    const result = await processNotifications();
+    const result = await executeNotificationJob("manual");
 
     return res.status(200).json({
       message: "Notification job executed successfully",
