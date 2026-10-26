@@ -33,3 +33,21 @@ export function courseEnrollmentEmail(name, courseTitle) {
     <p>Enjoy your learning journey!</p>
   `;
 }
+
+
+
+export function passwordResetEmail(name, resetUrl) {
+  const safeName = escapeHtml(name);
+  const safeResetUrl = escapeHtml(resetUrl);
+
+  return `
+    <h1>Reset your LMS password</h1>
+    <p>Hello ${safeName},</p>
+    <p>We received a request to reset your password.</p>
+    <p>
+      <a href="${safeResetUrl}">Reset your password</a>
+    </p>
+    <p>This link expires in 15 minutes.</p>
+    <p>If you did not request this, you can ignore this email.</p>
+  `;
+}
