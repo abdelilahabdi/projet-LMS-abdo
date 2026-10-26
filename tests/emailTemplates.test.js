@@ -1,4 +1,4 @@
-import { welcomeEmail , trainerWelcomeEmail } from "../src/services/emailTemplates";
+import { welcomeEmail , trainerWelcomeEmail , courseEnrollmentEmail, } from "../src/services/emailTemplates";
 
 describe("welcomeEmail" , () => {
     test("shows the learner name" , () => {
@@ -31,6 +31,25 @@ describe("trainerWelcomeEmail", () => {
     const email = trainerWelcomeEmail("<script>");
 
     expect(email).toContain("&lt;script&gt;");
+    expect(email).not.toContain("<script>");
+  });
+});
+
+
+describe("courseEnrollmentEmail", () => {
+  test("shows learner name and course title", () => {
+    const email = courseEnrollmentEmail("Ahmed", "JavaScript");
+
+    expect(email).toContain("Ahmed");
+    expect(email).toContain("JavaScript");
+    expect(email).toContain("Course Enrollment Confirmed");
+  });
+
+  test("escapes HTML in dynamic content", () => {
+    const email = courseEnrollmentEmail("<script>", "<img>");
+
+    expect(email).toContain("&lt;script&gt;");
+    expect(email).toContain("&lt;img&gt;");
     expect(email).not.toContain("<script>");
   });
 });

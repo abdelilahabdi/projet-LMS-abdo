@@ -2,6 +2,9 @@ import User from "../models/User.js";
 import { hash, compare } from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+
+import { sendEmail } from "../services/emailService.js";
+import { welcomeEmail } from "../services/emailTemplates.js";
 // Hash the password
 async function hashPassword(password) {
   const hashedPassword = await hash(password, 10);
@@ -66,6 +69,17 @@ export async function register(req, res) {
       password: hashedPassword,
       role: "learner",
     });
+
+
+    try {
+  await sendEmail(
+    newUser.email,
+    "Welcome to LMS",
+    welcomeEmail(newUser.name),
+  );
+} catch (emailError) {
+  console.error("Failed to send welcome email:", emailError.message);
+}
 
     // Send response
     res.status(201).json({

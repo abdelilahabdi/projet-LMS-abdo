@@ -21,3 +21,15 @@ export function trainerWelcomeEmail(name) {
     <p>thank you for joining our LMS</p>
     ` ;
 }
+
+export function courseEnrollmentEmail(name, courseTitle) {
+  const safeName = escapeHtml(name);
+  const safeCourseTitle = escapeHtml(courseTitle);
+
+  return `
+    <h1>Course Enrollment Confirmed</h1>
+    <p>Hello ${safeName},</p>
+    <p>You have successfully enrolled in ${safeCourseTitle}.</p>
+    <p>Enjoy your learning journey!</p>
+  `;
+}
